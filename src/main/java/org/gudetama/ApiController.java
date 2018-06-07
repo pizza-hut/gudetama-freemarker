@@ -25,6 +25,19 @@ public class ApiController {
 	@Autowired
 	TemplateService templateService;
 	
+	
+	@RequestMapping(value="/testMyTemplate", method=RequestMethod.POST)
+	public ResponseEntity<String> testMyTemplate(@ModelAttribute FormModel formModel) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+		//System.out.println(model.getMyString());
+		//System.out.println(model.getMyBool().toString());
+		String output;
+		output = templateService.testMyTemplate(formModel);		
+			
+		return new ResponseEntity<String>(output, HttpStatus.OK);
+	}
+	
+	
+	
 	@SuppressWarnings("unused")
 	@RequestMapping(value="/generateTemplateForm", method=RequestMethod.POST)
 	public ResponseEntity<String> generateTemplateForm(@ModelAttribute TemplateModel model) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {

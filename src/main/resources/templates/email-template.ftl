@@ -3,7 +3,9 @@
 
 <body>    
     <p><b>Templating with Spring Boot and FreeMarker</b></p>
-    <p>myString: ${templateModel.myString}</p>
-    <p>model.myString: ${templateModel.myString}</p>    
-</body> 
+    <p>
+    <p>myString: ${templateData.myString}</p>
+    <p>templateData.myString: ${templateData.myString}</p>
+    <p>templateData.myMap.first: ${templateData.myMap.first} </p>
+</body>
 </html>
