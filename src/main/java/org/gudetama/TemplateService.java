@@ -40,33 +40,5 @@ public class TemplateService {
     	
     }
     
-    public String generateTemplateUsingMap(Map<String, Object> model) throws TemplateNotFoundException, 
-    	MalformedTemplateNameException, ParseException, IOException, TemplateException {
-    	String output;
-    	        
-        freemarkerConfig.setClassForTemplateLoading(this.getClass(), "/templates");
-        
-        Template t = freemarkerConfig.getTemplate("email-template.ftl");
-        output = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
-            	
-    	return output;
-    	
-    }
     
-    public String generateTemplateUsingObject(TemplateModel templateModel) throws TemplateNotFoundException, 
-	MalformedTemplateNameException, ParseException, IOException, TemplateException {
-	String output;
-	    
-    freemarkerConfig.setClassForTemplateLoading(this.getClass(), "/templates");
-    
-    Template t = freemarkerConfig.getTemplate("email-template.ftl");
-    Map<String, Object> map = new HashMap<String, Object>();
-    map.put("templateData", templateModel);
-    System.out.println(map);
-    output = FreeMarkerTemplateUtils.processTemplateIntoString(t, map);
-        	
-	return output;
-	
-    } 
-
 }

@@ -38,32 +38,4 @@ public class ApiController {
 	
 	
 	
-	@SuppressWarnings("unused")
-	@RequestMapping(value="/generateTemplateForm", method=RequestMethod.POST)
-	public ResponseEntity<String> generateTemplateForm(@ModelAttribute TemplateModel model) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
-		System.out.println(model.getMyString());
-		//System.out.println(model.getMyBool().toString());
-		String output;
-		output = templateService.generateTemplateUsingObject(model);				
-			
-		return new ResponseEntity<String>(output, HttpStatus.OK);
-	}
-	
-	
-	@RequestMapping(value="generateTemplateObject", method=RequestMethod.POST)
-	public ResponseEntity<String> generateTemplateObject(@RequestBody TemplateModel model) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
-		System.out.println(model.getMyString());
-		//System.out.println(model.getMyBool().toString());
-		String output;
-		output = templateService.generateTemplateUsingObject(model);				
-		return new ResponseEntity<String>(output, HttpStatus.OK);		
-	}
-	
-	@PostMapping(value="generateTemplateMap")
-	public ResponseEntity<String> generateTemplateMap(@RequestBody TemplateModel model) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
-		String output;
-		output = templateService.generateTemplateUsingObject(model);				
-		return new ResponseEntity<String>(output, HttpStatus.OK);	
-	}
-
 }
