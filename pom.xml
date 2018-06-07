@@ -9,7 +9,6 @@
 	<packaging>jar</packaging>
 
 	<name>gudetama-freemarker-1</name>
-	<description>Cloud Stream Rabbit</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -36,11 +35,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.javabycode</groupId>
-			<artifactId>
-				spring-boot-freemarker-email-template
-			</artifactId>
-			<version>1.0</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-freemarker</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -54,4 +50,5 @@
 	</build>
 
 
+	<description>A freemarker template and data model tester</description>
 </project>

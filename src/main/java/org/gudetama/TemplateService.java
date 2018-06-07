@@ -12,12 +12,11 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.assertj.core.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
-@SuppressWarnings("unused")
+
 @Service
 public class TemplateService {
 	
