@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    });
+}
+</script>
+  <script src='tinymce/js/tinymce/tinymce.min.js'></script>
+  <script type="text/javascript">
+  tinymce.init({
+    selector: '#templateHTML',
+    //theme: 'modern',
+    sky: 'lightgray',
+    width: 800,
+    height: 450,    
+    plugins: [
+      'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+      'save table contextmenu directionality emoticons template paste textcolor code'
+    ],
+    content_css: 'css/content.css',
+    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage code | forecolor backcolor emoticons'
+  });
+  </script>
+
+<style>
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.active, .accordion:hover {
+    background-color: #ccc; 
+}
+
+.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+}
+</style>    
+</head>
+
+<body>
+    <p>Templates Editor powered by Tinymce and Freemarker</p>
+<form id="gudetamaform" action="http://localhost:8080/testMyTemplateJSON" method="post">
+<button class="accordion">Template Editor</button>
+    <div class="panel"></div><textarea id="templateHTML" name="templateHTML"></textarea></div>
+<button class="accordion">Data Model Editor</button>
+    <div class="panel"><textarea rows="30" cols="70" id="templateModelJSONString" name="templateModelJSONString"></textarea></div>
+        <input type="submit" value="submit" formtarget="_blank">
+</form>
+    
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <script src='tinymce/js/tinymce/tinymce.min.js'></script>
+  <script type="text/javascript">
+  tinymce.init({
+    selector: '#templateHTML',
+    //theme: 'modern',
+    sky: 'lightgray',
+    width: 800,
+    height: 450,    
+    plugins: [
+      'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+      'save table contextmenu directionality emoticons template paste textcolor code'
+    ],
+    content_css: 'css/content.css',
+    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage code | forecolor backcolor emoticons'
+  });
+  </script>
+  
+</head>
+
+<body>
+    <p>Templates Editor powered by Tinymce and Freemarker</p>
+<form id="gudetamaform" action="testMyTemplateJSON" method="post">
+    <div class="panel"></div><textarea id="templateHTML" name="templateHTML"></textarea></div>
+    <p></p>
+    <p>Data Model</p>
+    <div class="panel"><textarea rows="30" cols="70" id="templateModelJSONString" name="templateModelJSONString"></textarea></div>
+    <input type="submit" value="submit" formtarget="_blank">
+</form>
+    
+
+</body>
+</html>
