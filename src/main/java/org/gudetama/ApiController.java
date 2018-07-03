@@ -58,6 +58,16 @@ public class ApiController {
 				
 		return new ResponseEntity<String>(output, HttpStatus.OK);
 	}
+
+	@RequestMapping(value="/image.gif", method=RequestMethod.GET)
+	public ResponseEntity<String> track(@RequestParam String action, String tid, String jid) {
+		
+		System.out.println(action + " " + tid + " " + jid);
+		return null;
+		
+	}
+	
+	
 	
 	
 	
