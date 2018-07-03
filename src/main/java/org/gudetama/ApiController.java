@@ -1,19 +1,24 @@
 package org.gudetama;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 import java.util.Map;
 
 import org.gudetama.TemplateService;
 
+import org.apache.commons.io.IOUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -59,12 +64,16 @@ public class ApiController {
 		return new ResponseEntity<String>(output, HttpStatus.OK);
 	}
 
-	@RequestMapping(value="/image.gif", method=RequestMethod.GET)
-	public ResponseEntity<String> track(@RequestParam String action, String tid, String jid) {
+	@RequestMapping(value="/image.gif", method=RequestMethod.GET, produces=MediaType.IMAGE_GIF_VALUE)
+	public @ResponseBody byte[] track(@RequestParam String action, String tid, String jid) throws IOException {
 		
 		System.out.println(action + " " + tid + " " + jid);
-		return null;
 		
+		InputStream in = getClass().getResourceAsStream("/static/image.gif");
+		System.out.println(in.toString());
+		
+		
+		return IOUtils.toByteArray(in);		
 	}
 	
 	
