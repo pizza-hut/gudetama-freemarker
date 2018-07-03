@@ -65,7 +65,7 @@ public class ApiController {
 	}
 
 	@RequestMapping(value="/image.gif", method=RequestMethod.GET, produces=MediaType.IMAGE_GIF_VALUE)
-	public @ResponseBody byte[] track(@RequestParam(String action, String tid, String jid) throws IOException {
+	public @ResponseBody byte[] track(@RequestParam String action, String tid, String jid) throws IOException {
 		
 		System.out.println(action + " " + tid + " " + jid);
 		
