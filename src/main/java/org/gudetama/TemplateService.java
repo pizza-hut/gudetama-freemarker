@@ -30,6 +30,8 @@ public class TemplateService {
     MalformedTemplateNameException, ParseException, IOException, TemplateException {
     	
     	String output;
+    	    	
+    	freemarkerConfig.setTagSyntax(Configuration.SQUARE_BRACKET_TAG_SYNTAX);
     	
     	String templateString = formModel.getTemplateHTML();
     	Template t = new Template("testTemplate", new StringReader(templateString), freemarkerConfig);
@@ -43,6 +45,9 @@ public class TemplateService {
     }
 
 	public String testMyTemplate(String templateHTML, HashMap<String, Object> dataModel) throws Exception {
+		
+		freemarkerConfig.setTagSyntax(Configuration.SQUARE_BRACKET_TAG_SYNTAX);
+		
 		String output;    	
     	
     	Template t = new Template("testTemplate", new StringReader(templateHTML), freemarkerConfig);

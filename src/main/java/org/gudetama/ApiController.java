@@ -36,6 +36,9 @@ public class ApiController {
 	@Autowired
 	TemplateService templateService;
 	
+	@Autowired
+	EmailService emailService;
+	
 	
 	@RequestMapping(value="/testMyTemplate", method=RequestMethod.POST)
 	public ResponseEntity<String> testMyTemplate(@ModelAttribute FormModel formModel) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
@@ -50,17 +53,39 @@ public class ApiController {
 	public ResponseEntity<String> testMyTemplateJSON(@RequestParam String templateHTML, @RequestParam String templateModelJSONString) throws Exception {
 		
 		String output = templateModelJSONString;
+		
+		//String emailTo = "soon_lung_pong@manulife.com";
+		
 		System.out.println(templateModelJSONString);
 		
 		ObjectMapper mapper = new ObjectMapper();
 				
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
+		
 		map = mapper.readValue(templateModelJSONString, new TypeReference<Map<String, Object>>(){});
 		System.out.println(map);
 				
-		output = templateService.testMyTemplate(templateHTML, map);		
-				
+		output = templateService.testMyTemplate(templateHTML, map);
+		
+		//add send email to myself, hard code email address and smtp for demo
+		
+		Mail mail = new Mail();
+		mail.setMailFrom("acmepongg@gmail.com");
+		mail.setMailTo("soon_lung_pong@manulife.com");
+		mail.setMailCc("soon_lung_pong@manulife.com");
+		mail.setMailSubject("Spring Boot - Email with FreeMarker template");
+
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("firstName", "Ned");
+		model.put("lastName", "Flanders");
+		model.put("location", "Springfield");
+		model.put("signature", "nedflanders");
+		model.put("message", output);
+		mail.setModel(model);
+		mail.setMailContent(output);
+		emailService.sendEmail(mail);
+		
 		return new ResponseEntity<String>(output, HttpStatus.OK);
 	}
 
@@ -70,8 +95,9 @@ public class ApiController {
 		System.out.println(action + " " + tid + " " + jid);
 		
 		InputStream in = getClass().getResourceAsStream("/static/image.gif");
-		System.out.println(in.toString());
+		System.out.println(in.toString());		
 		
+		// <img src="https://<host>/image.gif?emailId=1234&action=open&jobId=12345">
 		
 		return IOUtils.toByteArray(in);		
 	}
