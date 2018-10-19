@@ -84,7 +84,7 @@ public class ApiController {
 		model.put("message", output);
 		mail.setModel(model);
 		mail.setMailContent(output);
-		emailService.sendEmail(mail);
+		//emailService.sendEmail(mail);
 		
 		return new ResponseEntity<String>(output, HttpStatus.OK);
 	}

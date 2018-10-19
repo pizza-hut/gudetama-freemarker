@@ -17,8 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
+import com.itextpdf.io.font.FontProgramFactory;
 //import com.itextpdf.io.source.
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
 
 @Service
 public class TemplateService {
@@ -60,33 +65,13 @@ public class TemplateService {
 	}
     
 	public void createPDF(String input) throws Exception {
-	    
-		HtmlConverter.convertToPdf(input, new FileOutputStream("d:\\html.pdf"));
+		//FontProgramFactory.registerFont("c:/windows/fonts/times.ttf", "times new roman");
+		//PdfFont timesnewromanFont = PdfFontFactory.createRegisteredFont("times new roman");
+		//FontProgramFactory.registerSystemFontDirectories();
+		//ConverterProperties properties = new ConverterProperties();
+	    //properties.setFontProvider(new DefaultFontProvider(true, true, true));		
+		HtmlConverter.convertToPdf(input, new FileOutputStream("d:\\html"+ System.currentTimeMillis()+".pdf"));
 		
-		/*
-		Document document = new Document();
-	    
-	    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("d:\\html.pdf"));
-	    document.open();
-	    ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
-	    XMLWorkerHelper.getInstance().parseXHtml(writer, document, in);
-	    //XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream(""));
-	    document.close();
-	    
-	    HtmlConverter
-	    
-		
-		/*
-		String k = "<html><body> This is my Project </body></html>";
-	    OutputStream file = new FileOutputStream(new File("D:\\Test.pdf"));
-	    Document document = new Document();
-	    PdfWriter.getInstance(document, file);
-	    document.open();
-	    HTMLWorker htmlWorker = new HTMLWorker(document);
-	    htmlWorker.parse(new StringReader(k));
-	    document.close();
-	    file.close();
-	    */
 	}
     
 }
