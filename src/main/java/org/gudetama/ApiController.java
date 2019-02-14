@@ -64,27 +64,42 @@ public class ApiController {
 		
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/services/data/v43.0/composite", method=RequestMethod.POST)
-	public ResponseEntity<CompositeResponse> patchAccounts(CompositeRequestObject body) {
-	        //URL url = Resources.getResource("sample.json");
+	public ResponseEntity<String> patchAccounts(String body) {
+        URL url = Resources.getResource("sample.json");
+        System.out.println(url.toString());
+        try {
+            String json= Resources.toString(url, Charsets.UTF_8);
+            System.out.println("sample.json: " + json);
+            return new ResponseEntity(json,HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+	/*
+	public ResponseEntity<CompositeResponseObject> patchAccounts(CompositeRequestObject body) {
+	        URL url = Resources.getResource("sample.json");
 	        CompositeResponse compositeResponse = new CompositeResponse();
 	        compositeResponse.setHttpStatusCode(201);
 	        try {
-	            //String json= Resources.toString(url, Charsets.UTF_8);
+	            String json= Resources.toString(url, Charsets.UTF_8);
 	        	
 	            ObjectMapper objectMapper = new ObjectMapper();
 	            
 	            objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+	            objectMapper.readValue(json, CompositeResponse.class);
 	            
-	            File file = ResourceUtils.getFile("classpath:sample.json");
-	            objectMapper.writeValue(file, compositeResponse);
+	            //File file = ResourceUtils.getFile("classpath:sample.json");
+	            //objectMapper.writeValue(file, compositeResponse);
 	            return new ResponseEntity<CompositeResponse>(compositeResponse, HttpStatus.OK);
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
 	        return null;
 	    }
-	
+	*/
 	@RequestMapping(value="/services/data/v43.0/composite", method=RequestMethod.GET)
 	public ResponseEntity<StubModel> getStub(){
 		
