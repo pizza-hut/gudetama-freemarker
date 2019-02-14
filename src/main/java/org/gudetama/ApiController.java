@@ -1,7 +1,9 @@
 package org.gudetama;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 
 import java.util.Map;
@@ -25,9 +27,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HttpServletBean;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Charsets;
+import com.google.common.io.Resources;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
@@ -43,8 +49,43 @@ public class ApiController {
 	@Autowired
 	EmailService emailService;
 	
+	@RequestMapping(value="/api/lead", method=RequestMethod.POST)
+	public ResponseEntity<CompositeResponse> getLead(@ModelAttribute CompositeRequest compositeRequest){
+		
+		CompositeResponse compositeResponse = new CompositeResponse();
+		
+		compositeResponse.setHttpStatusCode(201);
+		CompositeResponseBody body = new CompositeResponseBody();
+		body.setTotalSize(1);
+		body.setSuccess(true);
+		body.setId("id-1");
+				
+		return new ResponseEntity<CompositeResponse>(compositeResponse, HttpStatus.OK);
+		
+	}
 	
-	@RequestMapping(value="/api/stub", method=RequestMethod.GET)
+	@RequestMapping(value="/services/data/v43.0/composite", method=RequestMethod.POST)
+	public ResponseEntity<CompositeResponse> patchAccounts(CompositeRequestObject body) {
+	        //URL url = Resources.getResource("sample.json");
+	        CompositeResponse compositeResponse = new CompositeResponse();
+	        compositeResponse.setHttpStatusCode(201);
+	        try {
+	            //String json= Resources.toString(url, Charsets.UTF_8);
+	        	
+	            ObjectMapper objectMapper = new ObjectMapper();
+	            
+	            objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+	            
+	            File file = ResourceUtils.getFile("classpath:sample.json");
+	            objectMapper.writeValue(file, compositeResponse);
+	            return new ResponseEntity<CompositeResponse>(compositeResponse, HttpStatus.OK);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        return null;
+	    }
+	
+	@RequestMapping(value="/services/data/v43.0/composite", method=RequestMethod.GET)
 	public ResponseEntity<StubModel> getStub(){
 		
 		StubModel stub = new StubModel();

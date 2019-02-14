@@ -1,0 +1,63 @@
+{
+  "compositeResponse": [
+    {
+      "body": {
+        "totalSize": 1,
+        "done": true,
+        "records": [
+          {
+            "attributes": {
+              "type": "Lead",
+              "url": "/services/data/v43.0/sobjects/Lead/00Qp0000004GJxnEAG"
+            },
+            "AnnualRevenue": 10000.0,
+            "City": "Hong Kong",
+            "Company": "test",
+            "Country": "Thailand",
+            "CreatedDate": "2019-02-12T10:47:08.000+0000",
+            "Description": "some description",
+            "DoNotCall": true,
+            "Email": "abc_x_hong@manulife.com",
+            "Fax": "12345678",
+            "FirstName": "boris",
+            "HasOptedOutOfEmail": false,
+            "HasOptedOutOfFax": false,
+            "Id": "00Qp0000004GJxnEAG",
+            "Industry": "1",
+            "LastModifiedDate": "2019-02-12T10:47:08.000+0000",
+            "LastName": "Hong",
+            "Latitude": 90.0,
+            "LeadSource": "salesforce",
+            "Longitude": 111.0,
+            "MiddleName": null,
+            "MobilePhone": "123456789",
+            "Name": "boris Hong",
+            "NumberOfEmployees": 0,
+            "Phone": "1234567893",
+            "PhotoUrl": "/services/images/photo/00Qp0000004GJxnEAG",
+            "Rating": "Hot",
+            "Salutation": "Ms.",
+            "Status": "Open",
+            "Title": "Manager",
+            "Website": "http://www.manulife.com",
+            "CountryCode": "TH",
+            "Street": "ABC street",
+            "PostalCode": "852",
+            "State": "Bangkok",
+            "StateCode": "BANGKOK",
+            "GeocodeAccuracy": null,
+            "OwnerId": "0056F000009leZRQAY",
+            "RecordTypeId": "012p00000008JcTAAU",
+            "External_ID__c": null,
+            "Source_System__c": null,
+            "Integration_Key__c": null,
+            "Source_Channel__c": null
+          }
+        ]
+      },
+      "httpHeaders": {},
+      "httpStatusCode": 200,
+      "referenceId": "refLead"
+    }
+  ]
+}
