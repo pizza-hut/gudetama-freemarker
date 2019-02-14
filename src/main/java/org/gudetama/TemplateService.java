@@ -1,5 +1,6 @@
 package org.gudetama;
 
+//import freemarker.cache.WebappTemplateLoader;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
@@ -12,6 +13,8 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,18 +34,30 @@ public class TemplateService {
     @Autowired
     private Configuration freemarkerConfig;
     
+    @Autowired 
+    private ServletContext context;
+    
+    @Autowired
+    private URLTemplateLoader urlTemplateLoader;
+    
     public String testMyTemplate(FormModel formModel) throws TemplateNotFoundException, 
     MalformedTemplateNameException, ParseException, IOException, TemplateException {
     	
     	String output;
     	    	
     	freemarkerConfig.setTagSyntax(Configuration.SQUARE_BRACKET_TAG_SYNTAX);
-    	
+    	freemarkerConfig.setTemplateLoader(urlTemplateLoader);
+    	//WebappTemplateLoader templateLoader = new WebappTemplateLoader(servletContext, "WEB-INF/templates");
+    	//templateLoader.setURLConnectionUsesCaches(false);
+    	//templateLoader.setAttemptFileAccess(false);
+    	//freemarkerConfig.setTemplateLoader(templateLoader);
+    	//freemarkerConfig.setServletContextForTemplateLoading(this.context, "http://localhost:8080/template/");
     	String templateString = formModel.getTemplateHTML();
     	Template t = new Template("testTemplate", new StringReader(templateString), freemarkerConfig);
     	Map<String, Object> map = new HashMap<String, Object>();
         map.put("templateData", formModel.getTemplateData());
-    	System.out.println(map.values().toString());    	
+    	System.out.println(map.values().toString());
+    
     	output = FreeMarkerTemplateUtils.processTemplateIntoString(t, map);	
     	    			
     	return output;
@@ -63,6 +78,7 @@ public class TemplateService {
     	createPDF(output);
     	return output;
 	}
+	
     
 	public void createPDF(String input) throws Exception {
 		//FontProgramFactory.registerFont("c:/windows/fonts/times.ttf", "times new roman");

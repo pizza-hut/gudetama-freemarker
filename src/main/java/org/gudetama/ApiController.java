@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.gudetama.TemplateService;
 
 import org.apache.commons.io.IOUtils;
@@ -15,10 +17,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.HttpServletBean;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,6 +43,18 @@ public class ApiController {
 	@Autowired
 	EmailService emailService;
 	
+	
+	@RequestMapping(value="/api/stub", method=RequestMethod.GET)
+	public ResponseEntity<StubModel> getStub(){
+		
+		StubModel stub = new StubModel();
+		stub.setStubId("demoId");
+		stub.setStubName("demoName");
+		stub.setStubDescription("stubDescription");
+		
+		return new ResponseEntity<StubModel>(stub, HttpStatus.OK);
+		
+	}
 	
 	@RequestMapping(value="/testMyTemplate", method=RequestMethod.POST)
 	public ResponseEntity<String> testMyTemplate(@ModelAttribute FormModel formModel) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
@@ -102,6 +118,30 @@ public class ApiController {
 		return IOUtils.toByteArray(in);		
 	}
 	
+	@RequestMapping(value="/template/{id}", method=RequestMethod.GET)
+	public ResponseEntity<String> getTemplate(@PathVariable("id") String id, HttpServletResponse response) {
+		String templateOne = "<html><h1>Hello World</h1><p>Spring Boot is good.</p></html>";
+		String templateTwo = "<html>Bye World</html>";
+		String templateResponse = "";
+		response.setHeader("Content-Type", "text/html");
+		if (id=="templateOne") {
+			templateResponse = templateOne;
+		} else {
+			templateResponse = templateTwo;
+		}
+		
+		return new ResponseEntity<String>(templateResponse, HttpStatus.OK);		
+	}
+	
+	@RequestMapping(value="/css/{id}", method=RequestMethod.GET)
+	public ResponseEntity <String>getCSS(@PathVariable String id, HttpServletResponse response) {
+		String cssOne = "body {background-color: powderblue;}h1{color: blue;}p{color: red;}";
+		//String cssTwo = "body {background-color: powderblue;}h1{color: blue;}p{color: green;}";
+		response.setHeader("Content-Type", "text/css");
+		
+		return new ResponseEntity<String>(cssOne, HttpStatus.OK);
+		
+	}
 	
 	
 	
